@@ -38,12 +38,6 @@ def test_unknown_command():
     m = VendingMachine()
     assert "알 수 없는 명령입니다" == m.run("웅앵")
 
-# def test_valid_coins():
-#     m = VendingMachine()
-#     valid_coins = ["10", "50", "100", "500"]
-#     for coin in valid_coins:
-#         assert coin + "원을 넣었습니다" == m.run("동전 " + coin)
-
 def test_인식_하는_동전():
     m = VendingMachine()
     valid_coins = ["10", "50", "100", "500"]
@@ -54,3 +48,24 @@ def test_인식_하는_동전():
 def test_인식할_수_없는_동전():
     m = VendingMachine()
     assert "알 수 없는 동전입니다" == m.run("동전 110")
+
+def test_return_coin():
+    m = VendingMachine()
+    m.run("동전 670")
+    assert "잔액이 반환되었습니다 : 500원, 100원, 50원, 10원, 10원" == m.run("반환")
+
+def test_no_coin_to_return():
+    m = VendingMachine()
+    assert "잔액이 0원입니다" == m.run("반환")
+
+def test_milk():
+    m = VendingMachine()
+    m.run("동전 500")
+    assert "우유가 나왔습니다" == m.run("음료 우유")
+    assert "잔액은 300원입니다" == m.run("잔액")
+
+def test_milk_coffee():
+    m = VendingMachine()
+    m.run("동전 500")
+    assert "우유커피가 나왔습니다" == m.run("음료 우유커피")
+    assert "잔액은 200원입니다" == m.run("잔액")
